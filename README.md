@@ -41,7 +41,7 @@ The default base domain for Ingress LB is `minikube.local`. For example, if you 
 ```
 $ minikube start
 $ minikube addons enable ingress
-$ kubectl apply -f example/.
+$ kubectl apply -f ./example
 $ curl http://nginx.minikube.local/
 ```
 
