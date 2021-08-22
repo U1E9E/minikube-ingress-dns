@@ -7,14 +7,14 @@ This repository contains the script files in order to configure and restart dnsm
 You can install minikube-ingress-dns with homebrew as follows:
 
 ```
-$ brew tap superbrothers/minikube-ingress-dns git://github.com/superbrothers/minikube-ingress-dns.git
+$ brew tap U1E9E/minikube-ingress-dns git://github.com/U1E9E/minikube-ingress-dns.git
 $ brew install minikube-ingress-dns
 ```
 
 Otherwise you just clone this repository to install:
 
 ```
-$ git clone https://github.com/superbrothers/minikube-ingress-dns.git /path/to/minikube-ingress-dns
+$ git clone https://github.com/U1E9E/minikube-ingress-dns.git /path/to/minikube-ingress-dns
 ```
 
 ## Requirement
@@ -34,12 +34,6 @@ Choose the script file for your environment.
 ```sh
 # macOS
 alias minikube=/path/to/minikube-ingress-dns/minikube-ingress-dns-macos
-
-# Ubuntu 16.04 LTS
-alias minikube=/path/to/minikube-ingress-dns/minikube-ingress-dns-ubuntu16
-
-# Ubuntu 14.04 LTS
-alias minikube=/path/to/minikube-ingress-dns/minikube-ingress-dns-ubuntu14
 ```
 
 The default base domain for Ingress LB is `minikube.local`. For example, if you create an ingress object like the following, you can access http://nginx.minikube.local/ directly with curl, browser or something.
@@ -47,26 +41,7 @@ The default base domain for Ingress LB is `minikube.local`. For example, if you 
 ```
 $ minikube start
 $ minikube addons enable ingress
-$ kubectl create deployment nginx --image=nginx
-$ kubectl expose deploy nginx --port=80 --target-port=80
-$ cat <<EOL | kubectl apply -f -
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: nginx.minikube.local
-spec:
-  rules:
-  - host: nginx.minikube.local
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: nginx
-            port:
-              number: 80
-EOL
+$ kubectl apply -f example/.
 $ curl http://nginx.minikube.local/
 ```
 
